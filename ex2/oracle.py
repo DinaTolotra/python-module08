@@ -1,4 +1,3 @@
-from dotenv import load_dotenv
 from os import getenv
 
 
@@ -90,7 +89,13 @@ def check_config_values(mode: str, log_level: str) -> None:
 
 def load_config() -> Config | None:
     try:
+        from dotenv import load_dotenv
         load_dotenv()
+    except ModuleNotFoundError as e:
+        print(f"[Error] - {e}")
+        return None
+
+    try:
         check_config()
         (mode, db_url, api_key, log_level, endpoint) = (
             getenv("MATRIX_MODE", "").lower(),
@@ -102,11 +107,13 @@ def load_config() -> Config | None:
     except RuntimeError as e:
         print(f"[Error] - {e}")
         return None
+    
     try:
         check_config_values(mode, log_level)
     except ValueError as e:
         print(f"[Error] - {e}")
         return None
+
     return Config(
         mode, db_url, api_key,
         log_level_mapping.get(log_level, 0),
