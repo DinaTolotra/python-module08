@@ -53,22 +53,35 @@ def main() -> None:
         print_usage()
         return
 
+    day_count = 7
     rng = np.random.default_rng()
-    x = np.arange(100)
-    y = x * rng.random(100)
+    x = np.arange(day_count)
+    y_income = x * rng.random(day_count)
+    y_outcome = x * rng.random(day_count)
 
-    df1 = pd.DataFrame({
-        "x": x,
-        "y": y
+    daily_income = pd.DataFrame({
+        "Value": x,
+        "Day": y_income
     })
-    df2 = pd.DataFrame({
-        "x": x,
-        "y": np.cumsum(y) / np.arange(1, len(y) + 1)
+    daily_outcome = pd.DataFrame({
+        "Value": x,
+        "Day": y_outcome
+    })
+    saving = pd.DataFrame({
+        "Value": x,
+        "Day": np.cumsum(y_income - y_outcome)
     })
 
-    plt.plot(df1["x"], df1["y"])
-    plt.plot(df2["x"], df2["y"])
+    plt.plot(daily_income["Value"], daily_income["Day"],
+             label="Income", color="green")
+    plt.plot(daily_outcome["Value"], daily_outcome["Day"],
+             label="Outcome", color="red")
+    plt.plot(saving["Value"], saving["Day"],
+             label="Saving", color="blue")
+    plt.plot(np.array([0] * day_count), color="black")
+    plt.legend()
     plt.savefig("output.png")
+    plt.close()
 
 
 if __name__ == "__main__":
