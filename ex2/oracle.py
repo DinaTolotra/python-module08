@@ -89,24 +89,25 @@ def check_config_values(mode: str, log_level: str) -> None:
 
 def load_config() -> Config | None:
     try:
-        from dotenv import load_dotenv
+        from dotenv import load_dotenv  # type: ignore
         load_dotenv()
-    except ModuleNotFoundError as e:
+    except Exception as e:
         print(f"[Error] - {e}")
         return None
 
     try:
         check_config()
-        (mode, db_url, api_key, log_level, endpoint) = (
-            getenv("MATRIX_MODE", "").lower(),
-            getenv("DATABASE_URL", ""),
-            getenv("API_KEY", ""),
-            getenv("LOG_LEVEL", "").lower(),
-            getenv("ZION_ENDPOINT", "")
-        )
     except RuntimeError as e:
         print(f"[Error] - {e}")
         return None
+
+    (mode, db_url, api_key, log_level, endpoint) = (
+        getenv("MATRIX_MODE", "").lower(),
+        getenv("DATABASE_URL", ""),
+        getenv("API_KEY", ""),
+        getenv("LOG_LEVEL", "").lower(),
+        getenv("ZION_ENDPOINT", "")
+    )
     
     try:
         check_config_values(mode, log_level)
