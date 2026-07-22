@@ -24,6 +24,7 @@ def check_env() -> None:
         else:
             print(f"[KO] {pkg}")
             pkg_missing.append(pkg)
+
     if pkg_missing:
         raise RuntimeError(
             f"missing packages: {', '.join(pkg_missing)}")

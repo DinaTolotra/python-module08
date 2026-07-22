@@ -108,7 +108,7 @@ def load_config() -> Config | None:
         getenv("LOG_LEVEL", "").lower(),
         getenv("ZION_ENDPOINT", "")
     )
-    
+
     try:
         check_config_values(mode, log_level)
     except ValueError as e:
