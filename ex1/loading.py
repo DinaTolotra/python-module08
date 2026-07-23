@@ -32,7 +32,7 @@ def check_env() -> None:
 
 def print_usage() -> None:
     print("Usage:")
-    print("\n$ # pip")
+    print("\n$ # pip: package manager")
     print("$ python -m venv venv")
     print(" or \n$ /opt/pyenv/versions/3.13.*/bin/python -m venv venv")
     print("$ source venv/bin/activate{.sh|.fish}")
@@ -40,13 +40,13 @@ def print_usage() -> None:
     print("$ python loading.py")
     print("$ # Tool used: 'pip', 'venv', ./requirements.txt")
     print("$ # To support a full project, 'pip' are not enough")
-    print("\n$ # poetry")
+    print("\n$ # poetry: dependency manager and packager tool")
     print("$ poetry install")
     print("$ poetry env use python3.13", end="")
     print(" # or /opt/pyenv/versions/3.13.*/bin/python")
     print("$ poetry run python loading.py")
     print("$ # Tool used: 'poetry', ./pyproject.toml")
-    print("$ # 'poetry' can manage a project alone")
+    print("$ # 'poetry' can manage a real project alone")
 
 
 def main() -> None:
